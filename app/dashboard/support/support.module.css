@@ -1,0 +1,162 @@
+/*
+ * File: app/dashboard/support/support.module.css
+ * Styles for the Super Admin's "Support Ticket" page.
+ */
+
+/* 1. Page Title */
+.title {
+  font-size: 2rem; /* 32px */
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 2rem; /* 32px */
+}
+
+/* 2. Stat Card Grid */
+.statGrid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5rem; /* 24px */
+  margin-bottom: 2rem; /* 32px */
+}
+
+@media (min-width: 768px) {
+  .statGrid {
+    grid-template-columns: repeat(3, 1fr); /* 3 columns for stats */
+  }
+}
+
+/* 3. Individual Stat Card */
+.statCard {
+  background-color: var(--color-white);
+  border-radius: 0.75rem; /* 12px */
+  padding: 1.5rem; /* 24px */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.statValue {
+  font-size: 2.25rem; /* 36px */
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.statLabel {
+  font-size: 0.9rem; /* 14px */
+  font-weight: 600;
+  color: var(--color-text-light);
+}
+
+/* Specific colors for stat cards */
+.statValueOpen {
+  composes: statValue;
+  color: #ef4444; /* Red */
+}
+.statValuePending {
+  composes: statValue;
+  color: #f97316; /* Orange */
+}
+.statValueClosed {
+  composes: statValue;
+  color: #22c55e; /* Green */
+}
+
+
+/* 4. Table Container */
+.tableContainer {
+  background-color: var(--color-white);
+  border-radius: 0.75rem; /* 12px */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  overflow: hidden; /* Makes rounded corners work */
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* 5. Table Header (th) */
+.table th {
+  padding: 1rem 1.5rem; /* 16px 24px */
+  text-align: left;
+  font-size: 0.75rem; /* 12px */
+  font-weight: 600;
+  color: var(--color-text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background-color: #f9fafb; /* Very light grey */
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* 6. Table Data Cells (td) */
+.table td {
+  padding: 1rem 1.5rem; /* 16px 24px */
+  font-size: 0.9rem; /* 14px */
+  color: var(--color-text);
+  border-bottom: 1px solid #f3f4f6; /* Lighter border */
+  vertical-align: middle;
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.table tbody tr:hover {
+  background-color: #f9fafb; /* Light hover for rows */
+}
+
+/* 7. Ticket Info */
+.ticketSubject {
+  font-weight: 600;
+  color: var(--color-text);
+}
+.ticketUser {
+  font-size: 0.8rem; /* 13px */
+  color: var(--color-text-light);
+}
+
+/* 8. Status Pills */
+.statusPill {
+  padding: 0.25rem 0.75rem; /* 4px 12px */
+  border-radius: 9999px; /* Full pill shape */
+  font-size: 0.75rem; /* 12px */
+  font-weight: 600;
+  display: inline-block;
+  text-align: center;
+}
+
+.statusOpen {
+  composes: statusPill;
+  color: #b91c1c; /* Dark Red */
+  background-color: #fee2e2; /* Light Red */
+}
+
+.statusPending {
+  composes: statusPill;
+  color: #b45309; /* Dark Yellow */
+  background-color: #fef3c7; /* Light Yellow */
+}
+
+.statusClosed {
+  composes: statusPill;
+  color: #065f46; /* Dark Green */
+  background-color: #d1fae5; /* Light Green */
+}
+
+/* 9. Action Button */
+.viewButton {
+  padding: 0.6rem 1rem; /* 10px 16px */
+  font-size: 0.875rem; /* 14px */
+  font-weight: 600;
+  border-radius: 0.5rem; /* 8px */
+  border: none;
+  background-color: var(--primary-purple);
+  color: var(--color-white);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.viewButton:hover {
+  background-color: var(--primary-purple-dark);
+}

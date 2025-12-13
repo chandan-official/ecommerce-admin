@@ -1,0 +1,81 @@
+/*
+ * File: app/vendor-dashboard/page.module.css
+ * Styles for the vendor dashboard homepage (stat cards).
+ */
+
+/* 1. Page Title */
+.title {
+  font-size: 2rem; /* 32px */
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 2rem; /* 32px */
+}
+
+/* 2. Stat Card Grid */
+.statGrid {
+  display: grid;
+  /* Creates 4 columns on web, 2 on tablet, 1 on mobile */
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5rem; /* 24px */
+}
+
+/* Tablet screens */
+@media (min-width: 768px) {
+  .statGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Desktop screens */
+@media (min-width: 1024px) {
+  .statGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+
+/* 3. Individual Stat Card */
+.statCard {
+  background-color: var(--color-white);
+  border-radius: 0.75rem; /* 12px */
+  padding: 1.5rem; /* 24px */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* 16px */
+  transition: all 0.2s ease-in-out;
+}
+
+.statCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* 4. Card Icon */
+.statIcon {
+  width: 3.5rem; /* 56px */
+  height: 3.5rem; /* 56px */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
+}
+
+/* 5. Card Text */
+.statInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.statLabel {
+  font-size: 0.875rem; /* 14px */
+  font-weight: 600;
+  color: var(--color-text-light);
+}
+
+.statValue {
+  font-size: 1.875rem; /* 30px */
+  font-weight: 700;
+  color: var(--color-text);
+}

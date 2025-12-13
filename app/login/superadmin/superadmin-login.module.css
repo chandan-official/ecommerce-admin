@@ -1,0 +1,151 @@
+/* File: app/login/login.module.css */
+
+.container {
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background-color: #f3f4f6;
+}
+
+.card {
+  width: 100%;
+  max-width: 28rem; /* 450px */
+  border-radius: 0.75rem;
+  background-color: #ffffff;
+  padding: 2.5rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.logoWrapper {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1.5rem;
+  display: flex;
+  height: 4rem;
+  width: 4rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #f3e8ff; /* Light Purple */
+  font-size: 2rem;
+  font-weight: 800;
+  color: #7c3aed; /* Deep Purple */
+  font-family: sans-serif;
+}
+
+.title {
+  font-size: 2rem; /* Big and Clear */
+  font-weight: 800;
+  color: #111827;
+  margin-bottom: 0.5rem;
+  font-family: sans-serif;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: #6b7280;
+  font-family: sans-serif;
+}
+
+.formGroup {
+  margin-bottom: 1.25rem;
+}
+
+.label {
+  margin-bottom: 0.5rem;
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #374151;
+  font-family: sans-serif;
+}
+
+.input {
+  display: block;
+  width: 100%;
+  border-radius: 0.5rem;
+  border: 1px solid #d1d5db;
+  padding: 0.75rem 1rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  font-size: 1rem;
+  font-family: sans-serif;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input:focus {
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2); /* Purple Ring */
+  outline: none;
+}
+
+.passwordHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.forgotLink {
+  font-size: 0.875rem;
+  color: #7c3aed;
+  text-decoration: none;
+  font-weight: 600;
+  font-family: sans-serif;
+}
+
+.forgotLink:hover {
+  color: #5b21b6;
+  text-decoration: underline;
+}
+
+.button {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  border-radius: 0.5rem;
+  border: 1px solid transparent;
+  background-color: #7c3aed;
+  padding: 0.875rem 1rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-family: sans-serif;
+  margin-top: 1.5rem;
+}
+
+.button:hover {
+  background-color: #6d28d9;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  background-color: #c4b5fd;
+}
+
+.registerText {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-family: sans-serif;
+}
+
+.registerLink {
+  font-weight: 700;
+  color: #7c3aed;
+  text-decoration: none;
+  font-family: sans-serif;
+}
+
+.registerLink:hover {
+  color: #5b21b6;
+  text-decoration: underline;
+}

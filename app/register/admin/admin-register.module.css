@@ -1,0 +1,291 @@
+/*
+ * File: app/register/admin/admin-register.module.css
+ * Styles for the multi-step vendor registration wizard.
+ */
+
+/* 1. Main Container */
+.container {
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-background);
+  padding: 2rem 1rem; /* Add padding for smaller screens */
+}
+
+/* 2. Main Card */
+.card {
+  width: 100%;
+  max-width: 42rem; /* 672px - Wider for a complex form */
+  border-radius: 0.75rem; /* 12px */
+  background-color: var(--color-white);
+  padding: 2.5rem; /* 40px */
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* 3. Header */
+.header {
+  margin-bottom: 2rem; /* 32px */
+  text-align: center;
+}
+
+.title {
+  font-size: 2rem; /* 32px */
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 0.5rem 0;
+}
+
+.subtitle {
+  font-size: 1.125rem; /* 18px */
+  color: var(--color-text-light);
+}
+
+/* 4. Progress Bar */
+.progressBar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  position: relative; /* For the connecting line */
+}
+
+.progressStep {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.875rem; /* 14px */
+  font-weight: 600;
+  color: var(--color-border); /* Default: Inactive/Grey */
+  z-index: 10;
+  width: 100px; /* Give it some width */
+}
+
+.stepCircle {
+  height: 2.5rem; /* 40px */
+  width: 2.5rem; /* 40px */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  border: 2px solid var(--color-border);
+  background-color: var(--color-white);
+  margin-bottom: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+/* Active Step Style */
+.stepActive {
+  color: var(--primary-purple);
+}
+
+.stepActive .stepCircle {
+  border-color: var(--primary-purple);
+  background-color: var(--primary-purple);
+  color: var(--color-white);
+}
+
+/* Completed Step Style */
+.stepCompleted {
+  color: var(--primary-purple);
+}
+
+.stepCompleted .stepCircle {
+  border-color: var(--primary-purple);
+  background-color: var(--primary-purple-light);
+  color: var(--primary-purple);
+}
+
+/* Connecting Line (pseudo-element) */
+.progressBar::before {
+  content: '';
+  position: absolute;
+  top: 1.25rem; /* Aligns with center of circles */
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background-color: var(--color-border);
+  z-index: 5;
+}
+
+/* 5. Form Grid Layout */
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr; /* Default: 1 column */
+  gap: 1.25rem; /* 20px */
+}
+
+/* On larger screens, use 2 columns */
+@media (min-width: 768px) {
+  .formGrid {
+    grid-template-columns: 1fr 1fr; /* 2 columns */
+  }
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Make an element span both columns */
+.fullSpan {
+  grid-column: 1 / -1; /* Spans from first to last column */
+}
+
+.label {
+  margin-bottom: 0.5rem; /* 8px */
+  font-size: 0.875rem; /* 14px */
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.input {
+  padding: 0.75rem 1rem; /* 12px 16px */
+  font-size: 1rem; /* 16px */
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem; /* 8px */
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%; /* Ensure it fills the grid cell */
+}
+
+.input:focus {
+  border-color: var(--primary-purple);
+  box-shadow: 0 0 0 3px rgba(107, 70, 193, 0.15);
+  outline: none;
+}
+
+/* 6. File Upload Input */
+.fileInput {
+  composes: input; /* Inherit base styles from .input */
+  padding: 0;
+  border: 2px dashed var(--color-border);
+  background-color: #f9fafb;
+}
+
+.fileInput:focus {
+  border-color: var(--primary-purple);
+}
+
+/* Specific fix for file input padding */
+.fileInput::file-selector-button {
+  background-color: var(--primary-purple-light);
+  color: var(--primary-purple);
+  font-weight: 600;
+  padding: 0.75rem 1rem;
+  border: none;
+  margin-right: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.fileInput::file-selector-button:hover {
+  background-color: #ddd6fe;
+}
+
+
+/* 7. Checkbox */
+.checkboxContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; /* 12px */
+}
+
+.checkbox {
+  height: 1.25rem; /* 20px */
+  width: 1.25rem; /* 20px */
+  border-radius: 0.25rem;
+  border: 2px solid var(--color-border);
+}
+
+.checkbox:checked {
+  background-color: var(--primary-purple);
+  border-color: var(--primary-purple);
+}
+
+.checkboxLabel {
+  font-size: 0.875rem;
+  color: var(--color-text-light);
+}
+
+/* 8. Button Container (Next/Back) */
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem; /* 32px */
+  border-top: 1px solid var(--color-border);
+  padding-top: 1.5rem; /* 24px */
+}
+
+.button {
+  padding: 0.6rem 1.5rem;
+  font-size: 0.9rem; /* 14px */
+  font-weight: 600;
+  border-radius: 0.5rem; /* 8px */
+  text-decoration: none;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.buttonPrimary {
+  composes: button;
+  background-color: var(--primary-purple);
+  color: var(--color-white);
+}
+
+.buttonPrimary:hover {
+  background-color: var(--primary-purple-dark);
+}
+
+.buttonSecondary {
+  composes: button;
+  background-color: var(--color-white);
+  color: var(--color-text-light);
+  border-color: var(--color-border);
+}
+
+.buttonSecondary:hover {
+  background-color: #f9fafb; /* Light grey hover */
+  border-color: #9ca3af;
+}
+
+.button:disabled {
+  background-color: #ccc;
+  border-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
+/* 9. Final Success Message */
+.successContainer {
+  text-align: center;
+  padding: 2rem;
+}
+
+.successIcon {
+  height: 4rem; /* 64px */
+  width: 4rem; /* 64px */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #dcfce7; /* Green light */
+  color: #22c55e; /* Green */
+  font-size: 2.25rem; /* 36px */
+  font-weight: 700;
+  margin: 0 auto 1.5rem auto;
+}
+
+.successTitle {
+  font-size: 1.875rem; /* 30px */
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+}
+
+.successMessage {
+  font-size: 1rem; /* 16px */
+  color: var(--color-text-light);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}

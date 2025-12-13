@@ -1,0 +1,129 @@
+/*
+ * File: app/dashboard/orders/orders.module.css
+ * Styles for the Super Admin Orders table.
+ */
+
+/* 1. Page Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem; /* 32px */
+}
+
+.title {
+  font-size: 2rem; /* 32px */
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+/* 2. Table Container */
+.tableContainer {
+  background-color: var(--color-white);
+  border-radius: 0.75rem; /* 12px */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  overflow: hidden; /* Makes rounded corners work */
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* 3. Table Header (th) */
+.table th {
+  padding: 1rem 1.5rem; /* 16px 24px */
+  text-align: left;
+  font-size: 0.75rem; /* 12px */
+  font-weight: 600;
+  color: var(--color-text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background-color: #f9fafb; /* Very light grey */
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* 4. Table Data Cells (td) */
+.table td {
+  padding: 1rem 1.5rem; /* 16px 24px */
+  font-size: 0.9rem; /* 14px */
+  color: var(--color-text);
+  border-bottom: 1px solid #f3f4f6; /* Lighter border */
+  vertical-align: middle;
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.table tbody tr:hover {
+  background-color: #f9fafb; /* Light hover for rows */
+}
+
+/* 5. Clickable Order ID Link */
+.orderLink {
+  font-weight: 600;
+  color: var(--primary-purple);
+  text-decoration: none;
+}
+.orderLink:hover {
+  text-decoration: underline;
+  color: var(--primary-purple-dark);
+}
+
+/* 6. Status Pills */
+.statusPill {
+  padding: 0.25rem 0.75rem; /* 4px 12px */
+  border-radius: 9999px; /* Full pill shape */
+  font-size: 0.75rem; /* 12px */
+  font-weight: 600;
+  display: inline-block;
+  text-align: center;
+  min-width: 110px; /* Gives pills uniform width */
+}
+
+.statusPending {
+  composes: statusPill;
+  color: #b45309; /* Dark Yellow */
+  background-color: #fef3c7; /* Light Yellow */
+}
+.statusConfirmed {
+  composes: statusPill;
+  color: #047857; /* Dark Teal */
+  background-color: #a7f3d0; /* Light Teal */
+}
+.statusReady {
+  composes: statusPill;
+  color: #1d4ed8; /* Dark Blue */
+  background-color: #dbeafe; /* Light Blue */
+}
+.statusShipped {
+  composes: statusPill;
+  color: #6d28d9; /* Dark Purple */
+  background-color: #ede9fe; /* Light Purple */
+}
+.statusDelivered {
+  composes: statusPill;
+  color: #065f46; /* Dark Green */
+  background-color: #d1fae5; /* Light Green */
+}
+.statusCancelled {
+  composes: statusPill;
+  color: #b91c1c; /* Dark Red */
+  background-color: #fee2e2; /* Light Red */
+}
+
+/* 7. Status Dropdown */
+.statusSelect {
+  padding: 0.5rem 2rem 0.5rem 0.75rem; /* 8px 12px */
+  font-size: 0.875rem; /* 14px */
+  font-weight: 500;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem; /* 8px */
+  background-color: var(--color-white);
+}
+
+.statusSelect:disabled {
+  background-color: #f9fafb;
+  color: #9ca3af;
+}

@@ -1,0 +1,165 @@
+/*
+ * File: app/dashboard/locations/locations.module.css
+ * Styles for the Super Admin's "Location Management" page.
+ */
+
+/* 1. Page Title */
+.title {
+  font-size: 2rem; /* 32px */
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 2rem; /* 32px */
+}
+
+/* 2. Main Layout Grid */
+.layoutGrid {
+  display: grid;
+  /* 1 column on mobile, 2 on desktop */
+  grid-template-columns: repeat(1, 1fr);
+  gap: 2rem; /* 32px */
+}
+
+@media (min-width: 1024px) {
+  .layoutGrid {
+    /* 1 part for the form, 2 parts for the list */
+    grid-template-columns: 1fr 2fr;
+  }
+}
+
+/* 3. Base Card Style */
+.card {
+  background-color: var(--color-white);
+  border-radius: 0.75rem; /* 12px */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.cardHeader {
+  padding: 1.25rem 1.5rem; /* 20px 24px */
+  border-bottom: 1px solid var(--color-border);
+}
+
+.cardTitle {
+  font-size: 1.125rem; /* 18px */
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.cardBody {
+  padding: 1.5rem; /* 24px */
+}
+
+/* 4. "Add New" Form Styles */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem; /* 20px */
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* 8px */
+}
+
+.label {
+  font-size: 0.875rem; /* 14px */
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.input,
+.select {
+  padding: 0.75rem 1rem; /* 12px 16px */
+  font-size: 1rem; /* 16px */
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem; /* 8px */
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+  background-color: var(--color-white); /* Ensure select has bg */
+}
+
+.input:focus,
+.select:focus {
+  border-color: var(--primary-purple);
+  box-shadow: 0 0 0 3px rgba(107, 70, 193, 0.15);
+  outline: none;
+}
+
+.button {
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9rem; /* 14px */
+  font-weight: 600;
+  border-radius: 0.5rem; /* 8px */
+  border: none;
+  background-color: var(--primary-purple);
+  color: var(--color-white);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.button:hover {
+  background-color: var(--primary-purple-dark);
+}
+
+.button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* 5. Location List Styles */
+.locationList {
+  display: flex;
+  flex-direction: column;
+}
+
+.locationItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0; /* 16px 0 */
+  border-bottom: 1px solid #f3f4f6; /* Lighter border */
+}
+
+.locationItem:last-child {
+  border-bottom: none;
+}
+
+.locationInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.locationName {
+  font-size: 1rem; /* 16px */
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.locationStatus {
+  font-size: 0.8rem; /* 13px */
+  font-weight: 500;
+}
+
+.statusActive {
+  color: #065f46; /* Dark Green */
+}
+
+.statusDisabled {
+  color: #9ca3af; /* Grey */
+}
+
+.deleteButton {
+  padding: 0.5rem; /* 8px */
+  border-radius: 0.375rem; /* 6px */
+  border: none;
+  background-color: transparent;
+  color: #ef4444; /* Red */
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.deleteButton:hover {
+  background-color: #fef2f2; /* Light Red */
+  color: #b91c1c; /* Dark Red */
+}

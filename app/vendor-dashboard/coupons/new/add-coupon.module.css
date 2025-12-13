@@ -1,0 +1,148 @@
+/*
+ * File: app/vendor-dashboard/coupons/new/add-coupon.module.css
+ * Styles for the Vendor's "Add Coupon" form.
+ */
+
+/* 1. Main Form Card */
+.formCard {
+  width: 100%;
+  max-width: 48rem; /* 768px */
+  margin: 0 auto; /* Center the form */
+  border-radius: 0.75rem; /* 12px */
+  background-color: var(--color-white);
+  padding: 2.5rem; /* 40px */
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+}
+
+/* 2. Header */
+.title {
+  font-size: 1.875rem; /* 30px */
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 2rem; /* 32px */
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 1rem;
+}
+
+/* 3. Form Grid Layout */
+.formGrid {
+  display: grid;
+  /* 2 columns on web */
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5rem 2rem; /* 24px row, 32px col */
+}
+
+@media (min-width: 768px) {
+  .formGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 4. Form Elements */
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* 8px */
+}
+
+/* Spans 2 columns */
+.fullSpan {
+  grid-column: 1 / -1;
+}
+
+.label {
+  font-size: 0.875rem; /* 14px */
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.input,
+.select {
+  padding: 0.75rem 1rem; /* 12px 16px */
+  font-size: 1rem; /* 16px */
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem; /* 8px */
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+  background-color: var(--color-white); /* Ensure select has bg */
+}
+
+.input:focus,
+.select:focus {
+  border-color: var(--primary-purple);
+  box-shadow: 0 0 0 3px rgba(107, 70, 193, 0.15);
+  outline: none;
+}
+
+/* 5. Radio Button Styling */
+.radioGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem; /* 12px */
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* 8px */
+  font-size: 0.9rem; /* 14px */
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.radioInput {
+  /* Use accent-color to style the radio button */
+  accent-color: var(--primary-purple);
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+/* 6. Button Container */
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end; /* Align buttons to the right */
+  gap: 1rem; /* 16px */
+  margin-top: 2rem; /* 32px */
+  border-top: 1px solid var(--color-border);
+  padding-top: 1.5rem; /* 24px */
+}
+
+.button {
+  padding: 0.6rem 1.5rem;
+  font-size: 0.9rem; /* 14px */
+  font-weight: 600;
+  border-radius: 0.5rem; /* 8px */
+  text-decoration: none;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.buttonPrimary {
+  composes: button;
+  background-color: var(--primary-purple);
+  color: var(--color-white);
+}
+
+.buttonPrimary:hover {
+  background-color: var(--primary-purple-dark);
+}
+
+.buttonSecondary {
+  composes: button;
+  background-color: var(--color-white);
+  color: var(--color-text-light);
+  border-color: var(--color-border);
+}
+
+.buttonSecondary:hover {
+  background-color: #f9fafb; /* Light grey hover */
+  border-color: #9ca3af;
+}
+
+.button:disabled {
+  background-color: #ccc;
+  border-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}

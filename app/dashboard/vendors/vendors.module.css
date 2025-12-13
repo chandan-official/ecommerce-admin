@@ -1,0 +1,195 @@
+/*
+ * File: app/dashboard/vendors/vendors.module.css
+ * Styles for the Super Admin's "Vendor Management" list/table.
+ */
+
+/* 1. Page Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem; /* 32px */
+}
+
+.title {
+  font-size: 2rem; /* 32px */
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+/* 2. "Invite New Vendor" Button */
+.inviteButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* 8px */
+  padding: 0.75rem 1.25rem; /* 12px 20px */
+  font-size: 0.9rem; /* 14px */
+  font-weight: 600;
+  border-radius: 0.5rem; /* 8px */
+  text-decoration: none;
+  border: none;
+  background-color: var(--primary-purple);
+  color: var(--color-white);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.inviteButton:hover {
+  background-color: var(--primary-purple-dark);
+  box-shadow: 0 4px 15px -3px rgba(107, 70, 193, 0.4);
+  transform: translateY(-2px);
+}
+
+/* 3. Table Container */
+.tableContainer {
+  background-color: var(--color-white);
+  border-radius: 0.75rem; /* 12px */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  overflow: hidden; /* Makes rounded corners work */
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* 4. Table Header (th) */
+.table th {
+  padding: 1rem 1.5rem; /* 16px 24px */
+  text-align: left;
+  font-size: 0.75rem; /* 12px */
+  font-weight: 600;
+  color: var(--color-text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background-color: #f9fafb; /* Very light grey */
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* 5. Table Data Cells (td) */
+.table td {
+  padding: 1rem 1.5rem; /* 16px 24px */
+  font-size: 0.9rem; /* 14px */
+  color: var(--color-text);
+  border-bottom: 1px solid #f3f4f6; /* Lighter border */
+  vertical-align: middle;
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.table tbody tr:hover {
+  background-color: #f9fafb; /* Light hover for rows */
+}
+
+/* 6. Vendor Info (Name & Email) */
+.vendorName {
+  font-weight: 600;
+  color: var(--color-text);
+}
+.vendorEmail {
+  font-size: 0.8rem; /* 13px */
+  color: var(--color-text-light);
+}
+
+/* 7. Status Pills */
+.statusPill {
+  padding: 0.25rem 0.75rem; /* 4px 12px */
+  border-radius: 9999px; /* Full pill shape */
+  font-size: 0.75rem; /* 12px */
+  font-weight: 600;
+  display: inline-block;
+  text-align: center;
+  min-width: 90px; /* Gives pills uniform width */
+}
+
+.statusActive {
+  composes: statusPill;
+  color: #065f46; /* Dark Green */
+  background-color: #d1fae5; /* Light Green */
+}
+.statusPending {
+  composes: statusPill;
+  color: #b45309; /* Dark Yellow */
+  background-color: #fef3c7; /* Light Yellow */
+}
+.statusBlocked {
+  composes: statusPill;
+  color: #b91c1c; /* Dark Red */
+  background-color: #fee2e2; /* Light Red */
+}
+
+/* 8. --- NEW --- Live Status */
+.liveStatus {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* 8px */
+  font-size: 0.875rem; /* 14px */
+}
+
+.liveDot {
+  width: 0.75rem; /* 12px */
+  height: 0.75rem; /* 12px */
+  border-radius: 50%;
+}
+
+.online {
+  composes: liveDot;
+  background-color: #22c55e; /* Green */
+  /* We can add a pulsing animation for online */
+  animation: pulse 2s infinite;
+}
+
+.offline {
+  composes: liveDot;
+  background-color: #9ca3af; /* Grey */
+}
+
+/* Pulse animation for online dot */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+
+/* 9. Action Buttons (Approve/Block) */
+.actions {
+  display: flex;
+  gap: 0.75rem; /* 12px */
+}
+
+.actionButton {
+  padding: 0.5rem 0.75rem; /* 8px 12px */
+  font-size: 0.8rem; /* 13px */
+  font-weight: 600;
+  border-radius: 0.375rem; /* 6px */
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem; /* 5px */
+}
+
+.approveButton {
+  composes: actionButton;
+  color: #16a34a; /* Green */
+  background-color: #f0fdf4; /* Light Green */
+}
+.approveButton:hover {
+  background-color: #dcfce7;
+}
+
+.blockButton {
+  composes: actionButton;
+  color: #dc2626; /* Red */
+  background-color: #fef2f2; /* Light Red */
+}
+.blockButton:hover {
+  background-color: #fee2e2;
+}

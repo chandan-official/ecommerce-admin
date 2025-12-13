@@ -1,0 +1,121 @@
+/*
+ * File: app/dashboard/dashboard.module.css
+ * Styles for the main Super Admin dashboard layout (sidebar/header).
+ */
+
+/* 1. Main Layout Container */
+.layoutContainer {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--color-background);
+}
+
+/* 2. Sidebar */
+.sidebar {
+  width: 260px; /* A bit wider for a premium feel */
+  background-color: #111827; /* Dark background */
+  color: #e5e7eb; /* Light text */
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+/* 3. Sidebar Header (Logo Area) */
+.sidebarHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; /* 12px */
+  padding: 1.5rem; /* 24px */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.logoIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem; /* 40px */
+  height: 2.5rem; /* 40px */
+  border-radius: 0.5rem; /* 8px */
+  background-color: var(--primary-purple);
+  color: var(--color-white);
+  font-size: 1.5rem; /* 24px */
+  font-weight: 700;
+}
+
+.logoText {
+  font-size: 1.25rem; /* 20px */
+  font-weight: 600;
+  color: var(--color-white);
+}
+
+/* 4. Navigation Links */
+.nav {
+  flex-grow: 1; /* Pushes logout to the bottom */
+  padding: 1rem 0.75rem; /* 16px 12px */
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; /* 12px */
+  padding: 0.75rem 1rem; /* 12px 16px */
+  margin-bottom: 0.25rem; /* 4px */
+  border-radius: 0.5rem; /* 8px */
+  font-size: 0.95rem; /* 15px */
+  font-weight: 500;
+  color: #d1d5db; /* text-gray-300 */
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Hover for inactive links */
+.navLink:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--color-white);
+}
+
+/* Style for the active (current) page link */
+.activeLink {
+  composes: navLink; /* Inherits all styles from .navLink */
+  background-color: var(--primary-purple);
+  color: var(--color-white);
+  font-weight: 600;
+  box-shadow: 0 4px 10px -2px rgba(107, 70, 193, 0.4);
+}
+
+.navIcon {
+  width: 1.25rem; /* 20px */
+  height: 1.25rem; /* 20px */
+}
+
+/* 5. Sidebar Footer (Logout Button) */
+.sidebarFooter {
+  padding: 1rem 0.75rem; /* 16px 12px */
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* 6. Main Content Area (Header + Page) */
+.mainContent {
+  flex: 1; /* Takes up all remaining space */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Prevents layout issues */
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Pushes content to the right */
+  height: 4.5rem; /* 72px */
+  padding: 0 2rem; /* 32px */
+  background-color: var(--color-white);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* This is the scrollable area for the page content */
+.pageWrapper {
+  flex: 1;
+  overflow-y: auto; /* Makes the content scrollable, not the sidebar */
+  padding: 2.5rem; /* 40px */
+}

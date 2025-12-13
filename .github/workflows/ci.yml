@@ -1,0 +1,37 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  quality-check:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Get the code
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # 2. Install Node.js
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+
+    # 3. Install Dependencies (Clean Install)
+    - name: Install Dependencies
+      run: npm ci
+
+    # 4. Check for Coding Errors (Linting)
+    # If you have any syntax errors, this will fail and stop the build.
+    - name: Run Linting
+      run: npm run lint
+
+    # 5. Test the Build
+    # This ensures your app actually compiles and isn't broken.
+    - name: Run Build
+      run: npm run build

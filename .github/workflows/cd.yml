@@ -1,0 +1,33 @@
+name: CD Pipeline
+
+# 1. Run this only when code is pushed to 'master'
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  deploy:
+    name: Deploy to Hostinger
+    runs-on: ubuntu-latest
+    
+    # Optional: Wait for CI to pass before deploying (Recommended)
+    # needs: quality-check 
+
+    steps:
+    - name: Execute Remote SSH Commands
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        # These are the variables your friend will declare
+        host: ${{ secrets.HOSTINGER_HOST }}
+        username: ${{ secrets.HOSTINGER_USER }}
+        key: ${{ secrets.HOSTINGER_SSH_KEY }}
+        port: 22 # Standard SSH port
+        
+        # This script runs ON YOUR SERVER. 
+        # You need to change '/path/to/your/app' to the real folder path on Hostinger.
+        script: |
+          cd /path/to/your/admin-dashboard
+          git pull origin master
+          npm install
+          npm run build
+          pm2 restart all

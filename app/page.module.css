@@ -1,0 +1,99 @@
+/*
+ * File: app/page.module.css
+ * This CSS styles the main landing page (app/page.jsx).
+ * It creates a clean, centered layout for the two choices.
+ */
+
+/* 1. Main Container (the whole page) */
+.container {
+  display: flex;
+  flex-direction: column; /* Stack content vertically */
+  align-items: center;    /* Center horizontally */
+  justify-content: center;  /* Center vertically */
+  min-height: 100vh;
+  padding: 1rem;
+  background-color: var(--color-background); /* Uses light grey from globals.css */
+}
+
+/* 2. The main content card */
+.card {
+  background-color: var(--color-white);
+  border-radius: 0.75rem; /* 12px */
+  padding: 2.5rem; /* 40px */
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 100%;
+  max-width: 42rem; /* 672px */
+}
+
+/* 3. Header text */
+.title {
+  font-size: 2.25rem; /* 36px */
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 0.5rem 0; /* No top margin */
+}
+
+.subtitle {
+  font-size: 1.125rem; /* 18px */
+  color: var(--color-text-light);
+  margin-bottom: 2.5rem; /* 40px */
+}
+
+/* 4. Button container */
+.buttonContainer {
+  display: flex;
+  flex-direction: column; /* Stack buttons on mobile */
+  gap: 1.5rem; /* 24px space between buttons */
+}
+
+/* 5. The buttons themselves */
+.button {
+  display: block;
+  padding: 1rem 1.5rem;
+  font-size: 1rem; /* 16px */
+  font-weight: 600;
+  border-radius: 0.5rem; /* 8px */
+  text-decoration: none;
+  border: 2px solid transparent;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+/* Style for the "Super Admin" button */
+.buttonPrimary {
+  composes: button; /* Inherits all styles from .button */
+  background-color: var(--primary-purple);
+  color: var(--color-white);
+}
+
+/* Hover effect for the "Super Admin" button */
+.buttonPrimary:hover {
+  background-color: var(--primary-purple-dark);
+  box-shadow: 0 4px 15px -3px rgba(107, 70, 193, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Style for the "Join as Admin" button */
+.buttonSecondary {
+  composes: button; /* Inherits all styles from .button */
+  background-color: var(--color-white);
+  color: var(--primary-purple);
+  border-color: var(--primary-purple);
+}
+
+/* Hover effect for the "Join as Admin" button */
+.buttonSecondary:hover {
+  background-color: var(--primary-purple-light);
+  transform: translateY(-2px);
+}
+
+/* 6. Responsive design for web */
+@media (min-width: 768px) {
+  .buttonContainer {
+    flex-direction: row; /* Place buttons side-by-side on web */
+  }
+  .button {
+    flex: 1; /* Make both buttons take equal space */
+  }
+}

@@ -1,0 +1,72 @@
+/* File: app/vendor-dashboard/products/new/add-product.module.css */
+.formCard {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 1rem;
+}
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.fullSpan { grid-column: span 2; }
+.label { font-size: 0.875rem; font-weight: 600; color: #374151; }
+.input, .select, .textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+}
+.fileInput {
+  border: 2px dashed #d1d5db;
+  padding: 2rem;
+  text-align: center;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  background-color: #f9fafb;
+  width: 100%;
+}
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+.buttonPrimary {
+  background-color: #7c3aed;
+  color: white;
+  padding: 0.75rem 2rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+.buttonSecondary {
+  background-color: #ffffff;
+  color: #374151;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #d1d5db;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
