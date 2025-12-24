@@ -76,7 +76,7 @@ export default function SuperAdminNewProductPage() {
       await api.addProductAdmin(data); // ✅ Call endpoint for createAdminProduct
 
       alert("Product created successfully!");
-      router.push("/dashboard/products");
+      router.push("dashboard/products");
     } catch (error) {
       console.error("Failed to create product:", error);
       alert("Failed to create product: " + error.message);

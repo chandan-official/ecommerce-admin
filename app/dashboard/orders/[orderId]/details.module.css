@@ -115,17 +115,12 @@
 }
 
 /* 7. Action Buttons (Confirm/Dispatch) */
-.actionButtons {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem; /* 12px */
-}
-
+/* 7. Action Buttons */
 .button {
   padding: 0.6rem 1.5rem;
-  font-size: 0.9rem; /* 14px */
+  font-size: 0.9rem;
   font-weight: 600;
-  border-radius: 0.5rem; /* 8px */
+  border-radius: 0.5rem;
   text-decoration: none;
   border: none;
   cursor: pointer;
@@ -136,32 +131,29 @@
   gap: 0.5rem;
 }
 
+/* Primary */
 .buttonPrimary {
-  composes: button;
-  background-color: #22c55e; /* Green */
-  color: var(--color-white);
+  background-color: #22c55e;
+  color: #ffffff;
 }
 .buttonPrimary:hover {
   background-color: #16a34a;
 }
 
+/* Secondary */
 .buttonSecondary {
-  composes: button;
-  background-color: #3b82f6; /* Blue */
-  color: var(--color-white);
+  background-color: #3b82f6;
+  color: #ffffff;
 }
 .buttonSecondary:hover {
   background-color: #2563eb;
 }
 
+/* Danger */
 .buttonDanger {
-  composes: button;
-  background-color: #ef4444; /* Red */
-  color: var(--color-white);
+  background-color: #ef4444;
+  color: #ffffff;
 }
 .buttonDanger:hover {
   background-color: #dc2626;
 }
-
-/* --- THIS IS THE FIX --- */
-/* The extra characters "]s" after this block were deleted. */

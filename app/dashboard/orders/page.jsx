@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import styles from "./orders.module.css";
-import { api } from "@/app/utils/api";
+import { api } from "../../utils/api.js";
 
 const allStatuses = [
   "pending",
@@ -23,7 +23,7 @@ export default function SuperAdminOrdersPage() {
   const fetchOrders = async () => {
     try {
       setLoading(true);
-      const data = await api.getAllOrders();
+      const data = await api.getVendorOrders();
       setOrders(data);
     } catch (err) {
       setError(err.message || "Failed to fetch orders");
@@ -39,7 +39,7 @@ export default function SuperAdminOrdersPage() {
   // ---------------- UPDATE STATUS ----------------
   const handleStatusChange = async (orderId, newStatus) => {
     try {
-      await api.updateOrderStatus(orderId, newStatus);
+      await api.updateVendorOrderStatus(orderId, newStatus);
       setOrders((prev) =>
         prev.map((o) => (o._id === orderId ? { ...o, status: newStatus } : o))
       );
@@ -104,11 +104,16 @@ export default function SuperAdminOrdersPage() {
                   </Link>
                 </td>
 
-                <td>{new Date(order.createdAt).toLocaleDateString()}</td>
+                <td>
+                  {order.createdAt
+                    ? new Date(order.createdAt).toLocaleDateString()
+                    : "-"}
+                </td>
 
                 <td>{order.user?.name || "User"}</td>
 
-                <td>₹{order.totalAmount}</td>
+                {/* ✅ FIXED FIELD */}
+                <td>₹{order.totalPrice ?? 0}</td>
 
                 <td>
                   <span className={getStatusClass(order.status)}>

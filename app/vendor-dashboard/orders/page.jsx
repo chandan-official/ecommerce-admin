@@ -2,152 +2,148 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
 import styles from "./orders.module.css";
-import { ArrowLeft, XCircle, PackageX } from "lucide-react";
-import { api } from "@/app/utils/api";
+import { api } from "../../utils/api.js";
 
-export default function OrderDetailsPage() {
-  const { orderId } = useParams();
-  const router = useRouter();
+const allStatuses = [
+  "pending",
+  "confirmed",
+  "packed",
+  "in_transit",
+  "delivered",
+  "cancelled",
+];
 
-  const [order, setOrder] = useState(null);
+export default function SuperAdminOrdersPage() {
+  const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [notFound, setNotFound] = useState(false);
 
-  // ---------------- FETCH ORDER (VENDOR) ----------------
-  const fetchOrder = async () => {
+  // ---------------- FETCH ALL ORDERS ----------------
+  const fetchOrders = async () => {
     try {
       setLoading(true);
-      setError("");
-      setNotFound(false);
+      const data = await api.getVendorOrders();
 
-      const data = await api.getVendorOrderDetails(orderId);
-
-      if (!data || !data._id) {
-        setNotFound(true);
-        return;
-      }
-
-      setOrder(data);
+      // ✅ FIX HERE
+      setOrders(Array.isArray(data) ? data : data.orders || []);
     } catch (err) {
-      if (err.message.toLowerCase().includes("not found")) {
-        setNotFound(true);
-      } else {
-        setError(err.message || "Failed to fetch order");
-      }
+      setError(err.message || "Failed to fetch orders");
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    if (orderId) fetchOrder();
-  }, [orderId]);
+    fetchOrders();
+  }, []);
 
-  // ---------------- CANCEL ORDER ----------------
-  const handleCancel = async () => {
-    if (!confirm("Cancel this order?")) return;
-
+  // ---------------- UPDATE STATUS ----------------
+  const handleStatusChange = async (orderId, newStatus) => {
     try {
-      await api.updateVendorOrderStatus(orderId, "cancelled");
-      router.push("/dashboard/orders");
+      const res = await api.updateVendorOrderStatus(orderId, newStatus);
+
+      setOrders((prev) => prev.map((o) => (o._id === orderId ? res.order : o)));
     } catch (err) {
-      alert(err.message);
+      alert(err.message || "Failed to update order");
+    }
+  };
+
+  // ---------------- STATUS CSS ----------------
+  const getStatusClass = (status) => {
+    switch (status) {
+      case "confirmed":
+        return styles.statusConfirmed;
+      case "packed":
+        return styles.statusPacked;
+      case "in_transit":
+        return styles.statusInTransit;
+      case "delivered":
+        return styles.statusDelivered;
+      case "cancelled":
+        return styles.statusCancelled;
+      default:
+        "pending";
+        return styles.statusPending;
     }
   };
 
   // ---------------- STATES ----------------
-  if (loading) return <p>Loading order...</p>;
-
-  if (notFound) {
-    return (
-      <div className={styles.emptyState}>
-        <PackageX size={48} />
-        <h2>No order found yet</h2>
-        <p>This order does not exist or may have been removed.</p>
-        <Link href="/dashboard/orders" className={styles.buttonPrimary}>
-          Go back to Orders
-        </Link>
-      </div>
-    );
-  }
-
+  if (loading) return <p>Loading orders...</p>;
   if (error) return <p style={{ color: "red" }}>{error}</p>;
-  if (!order) return null;
 
   // ---------------- RENDER ----------------
   return (
     <div>
-      <div style={{ display: "flex", gap: "1rem", marginBottom: "1.5rem" }}>
-        <Link href="/dashboard/orders" className={styles.buttonSecondary}>
-          <ArrowLeft size={18} />
-        </Link>
-        <h1>Order #{order._id.slice(-6)}</h1>
+      <div className={styles.header}>
+        <h1 className={styles.title}>Order Management (All)</h1>
       </div>
 
-      <div className={styles.pageContainer}>
-        {/* LEFT */}
-        <div className={styles.mainContent}>
-          <div className={styles.card}>
-            <h2>Order Items ({order.items.length})</h2>
+      <div className={styles.tableContainer}>
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Date</th>
+              <th>User</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th>Update</th>
+            </tr>
+          </thead>
 
-            <table className={styles.productTable}>
-              <thead>
-                <tr>
-                  <th>Product</th>
-                  <th>Qty</th>
-                  <th>Rate</th>
-                  <th>Total</th>
-                </tr>
-              </thead>
-              <tbody>
-                {order.items.map((item, i) => (
-                  <tr key={i}>
-                    <td>{item.name}</td>
-                    <td>x {item.quantity}</td>
-                    <td>₹{item.price}</td>
-                    <td>₹{item.price * item.quantity}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+          <tbody>
+            {orders.map((order) => (
+              <tr key={order._id}>
+                <td>
+                  <Link
+                    href={`/vendor-dashboard/orders/${order._id}`}
+                    className={styles.orderLink}
+                  >
+                    #{order._id.slice(-6)}
+                  </Link>
+                </td>
 
-        {/* RIGHT */}
-        <div className={styles.sidebar}>
-          <div className={styles.card}>
-            <h2>Order Info</h2>
-            <p>
-              <strong>Status:</strong> {order.status}
-            </p>
-            <p>
-              <strong>Payment:</strong> {order.paymentInfo?.method}
-            </p>
-            <p>
-              <strong>Total Amount:</strong> ₹{order.totalAmount}
-            </p>
-            <p>
-              <strong>Placed On:</strong>{" "}
-              {new Date(order.createdAt).toLocaleDateString()}
-            </p>
-          </div>
+                <td>
+                  {order.createdAt
+                    ? new Date(order.createdAt).toLocaleDateString()
+                    : "-"}
+                </td>
 
-          <div className={styles.card}>
-            <h2>Shipping Address</h2>
-            <pre style={{ whiteSpace: "pre-wrap" }}>
-              {JSON.stringify(order.address, null, 2)}
-            </pre>
-          </div>
+                <td>{order.user?.name || "User"}</td>
 
-          {order.status !== "cancelled" && (
-            <button className={styles.buttonDanger} onClick={handleCancel}>
-              <XCircle size={18} /> Cancel Order
-            </button>
-          )}
-        </div>
+                {/* ✅ FIXED FIELD */}
+                <td>₹{order.totalPrice ?? 0}</td>
+
+                <td>
+                  <span className={getStatusClass(order.status)}>
+                    {order.status}
+                  </span>
+                </td>
+
+                <td>
+                  <select
+                    value={order.status}
+                    onChange={(e) =>
+                      handleStatusChange(order._id, e.target.value)
+                    }
+                    className={styles.statusSelect}
+                    disabled={
+                      order.status === "delivered" ||
+                      order.status === "cancelled"
+                    }
+                  >
+                    {allStatuses.map((status) => (
+                      <option key={status} value={status}>
+                        {status.replaceAll("_", " ")}
+                      </option>
+                    ))}
+                  </select>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

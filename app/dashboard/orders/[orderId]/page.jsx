@@ -1,132 +1,143 @@
-"use client";
+// "use client";
 
-import { useEffect, useState } from "react";
-import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
-import styles from "./order-details.module.css";
-import { ArrowLeft, XCircle } from "lucide-react";
-import { api } from "@/app/utils/api";
+// import React, { useEffect, useState } from "react";
+// import Link from "next/link";
+// import { useParams, useRouter } from "next/navigation";
+// import { ArrowLeft, XCircle } from "lucide-react";
+// import styles from "../[orderId]/orderdetail.module.css";
+// import { api } from "../../../utils/api";
 
-export default function OrderDetailsPage() {
-  const { orderId } = useParams();
-  const router = useRouter();
+// export default function OrderDetailsPage() {
+//   const params = useParams();
+//   const router = useRouter();
 
-  const [order, setOrder] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+//   // 🔒 Safely extract orderId
+//   const orderId =
+//     typeof params.orderId === "string" ? params.orderId : params.orderId?.[0];
 
-  // ---------------- FETCH ORDER ----------------
-  const fetchOrder = async () => {
-    try {
-      setLoading(true);
-      const data = await api.getVendorOrderDetails(orderId);
-      setOrder(data);
-    } catch (err) {
-      setError(err.message || "Failed to fetch order");
-    } finally {
-      setLoading(false);
-    }
-  };
+//   const [order, setOrder] = useState<any>(null);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState("");
 
-  useEffect(() => {
-    if (orderId) fetchOrder();
-  }, [orderId]);
+//   // ---------------- FETCH ORDER ----------------
+//   const fetchOrder = async () => {
+//     try {
+//       setLoading(true);
+//       const data = await api.getVendorOrderDetails(orderId);
+//       setOrder(data);
+//     } catch (err: any) {
+//       setError(err.message || "Failed to fetch order");
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
 
-  // ---------------- CANCEL ORDER ----------------
-  const handleCancel = async () => {
-    if (!confirm("Cancel this order?")) return;
+//   useEffect(() => {
+//     if (orderId) fetchOrder();
+//   }, [orderId]);
 
-    try {
-      await api.updateVendorOrderStatus(orderId, "cancelled");
-      await fetchOrder();
-      router.push("/dashboard/orders");
-    } catch (err) {
-      alert(err.message);
-    }
-  };
+//   // ---------------- CANCEL ORDER ----------------
+//   const handleCancel = async () => {
+//     if (!confirm("Cancel this order?")) return;
 
-  // ---------------- STATES ----------------
-  if (loading) return <p>Loading order...</p>;
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
-  if (!order) return null;
+//     try {
+//       await api.updateVendorOrderStatus(orderId, "cancelled");
+//       router.push("/dashboard/orders");
+//     } catch (err: any) {
+//       alert(err.message);
+//     }
+//   };
 
-  // ---------------- RENDER ----------------
-  return (
-    <div>
-      {/* HEADER */}
-      <div style={{ display: "flex", gap: "1rem", marginBottom: "1.5rem" }}>
-        <Link href="/dashboard/orders" className={styles.buttonSecondary}>
-          <ArrowLeft size={18} />
-        </Link>
-        <h1>Order #{order._id}</h1>
-      </div>
+//   // ---------------- STATES ----------------
+//   if (loading) return <p>Loading order...</p>;
+//   if (error) return <p style={{ color: "red" }}>{error}</p>;
+//   if (!order) return null;
 
-      <div className={styles.pageContainer}>
-        {/* LEFT */}
-        <div className={styles.mainContent}>
-          <div className={styles.card}>
-            <h2>Order Items ({order.items.length})</h2>
+//   // ✅ SAFE ARRAY NORMALIZATION (FIX)
+//   const orderItems = Array.isArray(order.orderItems) ? order.orderItems : [];
 
-            <table className={styles.productTable}>
-              <thead>
-                <tr>
-                  <th>Product</th>
-                  <th>Qty</th>
-                  <th>Rate</th>
-                  <th>Total</th>
-                </tr>
-              </thead>
-              <tbody>
-                {order.items.map((item, i) => (
-                  <tr key={i}>
-                    <td>{item.name}</td>
-                    <td>x {item.quantity}</td>
-                    <td>₹{item.price}</td>
-                    <td>₹{item.price * item.quantity}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+//   const address = order.shippingAddress || {};
 
-        {/* RIGHT */}
-        <div className={styles.sidebar}>
-          {/* ORDER INFO */}
-          <div className={styles.card}>
-            <h2>Order Info</h2>
+//   // ---------------- RENDER ----------------
+//   return (
+//     <div>
+//       {/* HEADER */}
+//       <div style={{ display: "flex", gap: "1rem", marginBottom: "1.5rem" }}>
+//         <Link href="/dashboard/orders" className={styles.buttonSecondary}>
+//           <ArrowLeft size={18} />
+//         </Link>
+//         <h1>Order #{order._id}</h1>
+//       </div>
 
-            <p>
-              <strong>Status:</strong> {order.status}
-            </p>
-            <p>
-              <strong>Payment:</strong> {order.paymentInfo?.method}
-            </p>
-            <p>
-              <strong>Total Amount:</strong> ₹{order.totalAmount}
-            </p>
-            <p>
-              <strong>Placed On:</strong>{" "}
-              {new Date(order.createdAt).toLocaleDateString()}
-            </p>
-          </div>
+//       <div className={styles.pageContainer}>
+//         {/* LEFT */}
+//         <div className={styles.mainContent}>
+//           <div className={styles.card}>
+//             <h2>Order Items ({orderItems.length})</h2>
 
-          {/* ADDRESS */}
-          <div className={styles.card}>
-            <h2>Shipping Address</h2>
-            <pre style={{ whiteSpace: "pre-wrap" }}>
-              {JSON.stringify(order.address, null, 2)}
-            </pre>
-          </div>
+//             <table className={styles.productTable}>
+//               <thead>
+//                 <tr>
+//                   <th>Product</th>
+//                   <th>Qty</th>
+//                   <th>Rate</th>
+//                   <th>Total</th>
+//                 </tr>
+//               </thead>
+//               <tbody>
+//                 {orderItems.map((item: any, i: number) => (
+//                   <tr key={i}>
+//                     <td>{item.name}</td>
+//                     <td>x {item.qty}</td>
+//                     <td>₹{item.price}</td>
+//                     <td>₹{item.price * item.qty}</td>
+//                   </tr>
+//                 ))}
+//               </tbody>
+//             </table>
+//           </div>
+//         </div>
 
-          {/* ACTION */}
-          {order.status !== "cancelled" && (
-            <button className={styles.buttonDanger} onClick={handleCancel}>
-              <XCircle size={18} /> Cancel Order
-            </button>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
+//         {/* RIGHT */}
+//         <div className={styles.sidebar}>
+//           {/* ORDER INFO */}
+//           <div className={styles.card}>
+//             <h2>Order Info</h2>
+
+//             <div className={styles.address}>
+//               <p>
+//                 <strong>{address.fullName}</strong>
+//               </p>
+//               <p>{address.address}</p>
+//               <p>
+//                 {address.city}, {address.state} – {address.pincode}
+//               </p>
+//               <p>📞 {address.phone}</p>
+//             </div>
+
+//             <p>
+//               <strong>Status:</strong> {order.status}
+//             </p>
+//             <p>
+//               <strong>Payment:</strong> {order.paymentMethod}
+//             </p>
+//             <p>
+//               <strong>Total Amount:</strong> ₹{order.totalPrice}
+//             </p>
+//             <p>
+//               <strong>Placed On:</strong>{" "}
+//               {new Date(order.createdAt).toLocaleDateString()}
+//             </p>
+//           </div>
+
+//           {/* ACTION */}
+//           {order.status !== "cancelled" && (
+//             <button className={styles.buttonDanger} onClick={handleCancel}>
+//               <XCircle size={18} /> Cancel Order
+//             </button>
+//           )}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }

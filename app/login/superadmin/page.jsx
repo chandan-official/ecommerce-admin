@@ -20,34 +20,27 @@ export default function SuperAdminLoginPage() {
     setError("");
 
     try {
-      // Trim inputs to avoid accidental spaces
       const payload = {
         email: email.trim(),
         password: password.trim(),
       };
 
-      console.log("Attempting Super Admin login:", payload);
-
-      // Call the adminLogin API
       const response = await api.adminLogin(payload);
 
-      console.log("Login Successful:", response);
-
       if (response?.token) {
-        // Save token under adminToken
+        // ✅ CRITICAL FIX (DO NOT REMOVE)
         localStorage.setItem("adminToken", response.token);
-        // Redirect to Super Admin Dashboard
+        localStorage.setItem("role", "admin");
+
         router.push("/dashboard/admin");
+      } else {
+        setError("Invalid login response from server");
       }
     } catch (err) {
-      console.error("Login error:", err);
-
-      // Axios errors may have nested response
       const msg =
         err.response?.data?.message ||
         err.message ||
         "Invalid Super Admin credentials";
-
       setError(msg);
     } finally {
       setIsLoading(false);

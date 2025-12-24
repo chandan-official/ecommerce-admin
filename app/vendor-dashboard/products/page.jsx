@@ -3,15 +3,17 @@
  * UPDATED: Uses your friend's useEffect logic for secure fetching.
  */
 
-'use client'; 
+"use client";
 
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import styles from './products.module.css';
-import { Plus, Pencil, Trash2 } from 'lucide-react';
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import styles from "./products.module.css";
+import { Plus, Pencil, Trash2 } from "lucide-react";
+import { useSearchParams } from "next/navigation";
+
 // --- FIX: Go back 2 levels (products -> vendor-dashboard -> app) ---
-import { api } from '../../utils/api'; 
+import { api } from "../../utils/api";
 
 export default function VendorProductsPage() {
   const router = useRouter();
@@ -40,8 +42,8 @@ export default function VendorProductsPage() {
 
         // Smart check: backend might return array directly OR { products: [] }
         // Your friend used res.products || [], we add a check for array too just in case
-        const productList = Array.isArray(res) ? res : (res.products || []);
-        
+        const productList = Array.isArray(res) ? res : res.products || [];
+
         setProducts(productList);
       } catch (error) {
         console.error("❌ Failed to load products:", error);
@@ -56,7 +58,8 @@ export default function VendorProductsPage() {
   // --- Helper Functions ---
   const getStatusClass = (status) => {
     // Check for boolean or string status
-    if (status === true || status === 'Active' || status === 'Published') return styles.statusPublished;
+    if (status === true || status === "Active" || status === "Published")
+      return styles.statusPublished;
     return styles.statusDraft;
   };
 
@@ -65,7 +68,9 @@ export default function VendorProductsPage() {
       try {
         await api.deleteVendorProduct(productId);
         // Remove from UI immediately
-        setProducts(curr => curr.filter(p => (p._id || p.id) !== productId));
+        setProducts((curr) =>
+          curr.filter((p) => (p._id || p.id) !== productId)
+        );
         alert("Product deleted!");
       } catch (error) {
         alert("Failed to delete product: " + error.message);
@@ -74,38 +79,42 @@ export default function VendorProductsPage() {
   };
 
   const handleEdit = (productId) => {
-     // Placeholder for edit functionality
-     alert(`Edit product: ${productId}`);
+    router.push(`/vendor-dashboard/products/new?id=${productId}`);
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <h1 className={styles.title}>My Products</h1>
-        <Link href="/vendor-dashboard/products/new" className={styles.addButton}>
+        <Link
+          href="/vendor-dashboard/products/new"
+          className={styles.addButton}
+        >
           <Plus size={18} /> Add New Product
         </Link>
       </div>
 
       <div className={styles.tableContainer}>
         {isLoading ? (
-          <p style={{padding: '2rem', textAlign: 'center'}}>Loading products...</p>
+          <p style={{ padding: "2rem", textAlign: "center" }}>
+            Loading products...
+          </p>
         ) : products.length === 0 ? (
-          <div style={{padding: '3rem', textAlign: 'center', color: '#666'}}>
+          <div style={{ padding: "3rem", textAlign: "center", color: "#666" }}>
             <p>No products found.</p>
-            <p style={{fontSize: '0.9rem', marginTop: '10px'}}>
-               Click "Add New Product" to start selling!
+            <p style={{ fontSize: "0.9rem", marginTop: "10px" }}>
+              Click &quot;Add New Product&quot; to start selling!
             </p>
           </div>
         ) : (
           <table className={styles.table}>
             <thead>
               <tr>
-                <th style={{ width: '40%' }}>Product Name</th>
-                <th style={{ width: '15%' }}>Price</th>
-                <th style={{ width: '15%' }}>Stock</th>
-                <th style={{ width: '15%' }}>Status</th>
-                <th style={{ width: '15%', textAlign: 'center' }}>Actions</th>
+                <th style={{ width: "40%" }}>Product Name</th>
+                <th style={{ width: "15%" }}>Price</th>
+                <th style={{ width: "15%" }}>Stock</th>
+                <th style={{ width: "15%" }}>Status</th>
+                <th style={{ width: "15%", textAlign: "center" }}>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -115,25 +124,27 @@ export default function VendorProductsPage() {
                     <span className={styles.productName}>{product.name}</span>
                   </td>
                   <td>₹{product.price}</td>
-                  <td style={{ color: product.stock === 0 ? 'red' : 'inherit' }}>
-                    {product.stock > 0 ? product.stock : 'Out of Stock'}
+                  <td
+                    style={{ color: product.stock === 0 ? "red" : "inherit" }}
+                  >
+                    {product.stock > 0 ? product.stock : "Out of Stock"}
                   </td>
                   <td>
                     {/* Handle isActive (boolean) or status (string) */}
                     <span className={getStatusClass(product.isActive)}>
-                      {product.isActive ? 'Active' : 'Draft'}
+                      {product.isActive ? "Active" : "Draft"}
                     </span>
                   </td>
-                  <td style={{ textAlign: 'center' }}>
+                  <td style={{ textAlign: "center" }}>
                     <div className={styles.actions}>
-                      <button 
+                      <button
                         onClick={() => handleEdit(product._id || product.id)}
                         className={styles.editButton}
                         title="Edit Product"
                       >
                         <Pencil size={18} />
                       </button>
-                      <button 
+                      <button
                         onClick={() => handleDelete(product._id || product.id)}
                         className={styles.deleteButton}
                         title="Delete Product"
